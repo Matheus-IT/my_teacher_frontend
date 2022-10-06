@@ -1,12 +1,13 @@
 import type { NextPage } from 'next'
+import Header from '../src/components/Header';
 
 
 const Home: NextPage = () => {
   return (
-    <div>Hello</div>
+    <Header />
   );
 }
 
 export default Home;
 
-Video stopped at 34:41
+// Video stopped at 34:41
