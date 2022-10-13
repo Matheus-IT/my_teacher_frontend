@@ -50,6 +50,13 @@ export default function useIndex() {
         return professors;
     }
 
+    useEffect(cleanFields, [selectedTeacher]);
+
+    function cleanFields() {
+        setName('');
+        setEmail('');
+    }
+
     return {
         teacherList,
         name,
