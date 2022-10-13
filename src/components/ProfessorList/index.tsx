@@ -1,5 +1,6 @@
 import { Button } from "@mui/material";
 import { Professor } from "../../@types/professor";
+import { FormatterService } from "../../services/formatterService";
 import { Cost, Description, Info, Name, Photo, StyledListing, StyledListItem } from "./index.styles";
 
 interface ProfessorListProps {
@@ -17,9 +18,9 @@ export default function ProfessorList(props: ProfessorListProps) {
                         <Info>
                             <Name>{p.name}</Name>
                             <Cost>
-                                {p.cost.toLocaleString('pt-BR', {minimumFractionDigits: 2, style: 'currency', currency: 'BRL'})} per hour
+                                {FormatterService.currency(p.cost)} per hour
                             </Cost>
-                            <Description>{p.description}</Description>
+                            <Description>{FormatterService.limitText(p.description)}</Description>
                             <Button sx={{ width: '70%'}}>Schedule Class with {p.name}</Button>
                         </Info>
                     </StyledListItem>
