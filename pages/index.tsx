@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Button, Dialog, DialogActions, Grid, TextField } from '@mui/material';
 import type { NextPage } from 'next'
 import { Professor } from '../src/@types/professor';
 import Header from '../src/components/Header';
@@ -7,12 +7,58 @@ import useIndex from '../src/hooks/useIndex';
 
 
 const Home: NextPage = () => {
-    const { teacherList } = useIndex();
+    const {
+        teacherList,
+        name,
+        setName,
+        email,
+        setEmail,
+        selectedTeacher,
+        setSelectedTeacher,
+        scheduleClass } = useIndex();
 
     return (
-        <Box sx={{ backgroundColor: 'secondary.main' }}>
-            <ProfessorList professors={teacherList} />
-        </Box>
+        <div>
+            <Box sx={{ backgroundColor: 'secondary.main' }}>
+                <ProfessorList
+                    professors={teacherList}
+                    onSelect={professor => setSelectedTeacher(professor)}
+                />
+            </Box>
+
+            <Dialog
+                open={selectedTeacher !== null}
+                onClose={() => setSelectedTeacher(null)}
+                fullWidth
+                PaperProps={{sx: {p: 5}}}
+            >
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                        <TextField
+                            label="Enter your full name"
+                            type="text"
+                            fullWidth
+                            onChange={event => setName(event.target.value)}
+                            value={name}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            label="Enter your email"
+                            type="email"
+                            fullWidth
+                            onChange={event => setEmail(event.target.value)}
+                            value={email}
+                        />
+                    </Grid>
+                </Grid>
+
+                <DialogActions sx={{mt: 5}}>
+                    <Button onClick={() => setSelectedTeacher(null)}>Cancel</Button>
+                    <Button onClick={scheduleClass}>Schedule</Button>
+                </DialogActions>
+            </Dialog>
+        </div>
     );
 }
 

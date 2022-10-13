@@ -5,6 +5,7 @@ import { Cost, Description, Info, Name, Photo, StyledListing, StyledListItem } f
 
 interface ProfessorListProps {
     professors: Array<Professor>;
+    onSelect: (professor: Professor) => void;
 }
 
 export default function ProfessorList(props: ProfessorListProps) {
@@ -21,7 +22,12 @@ export default function ProfessorList(props: ProfessorListProps) {
                                 {FormatterService.currency(p.cost)} per hour
                             </Cost>
                             <Description>{FormatterService.limitText(p.description)}</Description>
-                            <Button sx={{ width: '70%'}}>Schedule Class with {p.name}</Button>
+                            <Button
+                                onClick={() => props.onSelect(p)}
+                                sx={{ width: '70%'}}
+                            >
+                                Schedule Class with {p.name}
+                            </Button>
                         </Info>
                     </StyledListItem>
                 );
