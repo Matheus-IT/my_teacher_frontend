@@ -7,6 +7,7 @@ export default function useIndex() {
     const [ name, setName ] = useState('');
     const [ email, setEmail ] = useState('');
     const [ selectedTeacher, setSelectedTeacher ] = useState<Professor | null>(null);
+    const [ feedback, setFeedback ] = useState('');
 
     useEffect(() => {
         ApiService.get('/app/teacher/').then(response => {
@@ -21,12 +22,12 @@ export default function useIndex() {
                 email,
             }).then(response => {
                 setSelectedTeacher(null);
-                alert('Scheduled successfully');
+                setFeedback('Scheduled successfully');
             }).catch(error => {
-                alert(error.response?.data.message);
+                setFeedback(error.response?.data.message);
             });
         } else {
-            alert('Please fill out the form correctly');
+            setFeedback('Please fill out the form correctly');
         }
     }
 
@@ -58,5 +59,7 @@ export default function useIndex() {
         selectedTeacher,
         setSelectedTeacher,
         scheduleClass,
+        feedback,
+        setFeedback,
     };
 }

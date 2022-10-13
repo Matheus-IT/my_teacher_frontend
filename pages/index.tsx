@@ -1,4 +1,4 @@
-import { Box, Button, Dialog, DialogActions, Grid, TextField } from '@mui/material';
+import { Box, Button, Dialog, DialogActions, Grid, Snackbar, TextField } from '@mui/material';
 import type { NextPage } from 'next'
 import { Professor } from '../src/@types/professor';
 import Header from '../src/components/Header';
@@ -15,7 +15,9 @@ const Home: NextPage = () => {
         setEmail,
         selectedTeacher,
         setSelectedTeacher,
-        scheduleClass } = useIndex();
+        scheduleClass,
+        feedback,
+        setFeedback } = useIndex();
 
     return (
         <div>
@@ -58,6 +60,13 @@ const Home: NextPage = () => {
                     <Button onClick={scheduleClass}>Schedule</Button>
                 </DialogActions>
             </Dialog>
+
+            <Snackbar
+                message={feedback}
+                open={feedback.length > 0}
+                autoHideDuration={3000}
+                onClose={() => setFeedback('')}
+            />
         </div>
     );
 }
